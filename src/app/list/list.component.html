@@ -1,0 +1,124 @@
+<h1>Addresses</h1>
+
+<mat-form-field>
+  <input type="text" matInput placeholder="filter" (keyup)="applyFilter($event)">
+</mat-form-field>
+<div [formGroup]="throwErrorsForm">
+  <mat-slide-toggle
+    class=""
+    color="warn"
+    formControlName="errorSwitch"
+    (change)="throwErrorsChanged($event)" >
+        Simulate that there are connection problems when saving changing or deleting records. (Loading addresses will not be affected.)
+  </mat-slide-toggle>
+</div>
+<div class="table mat-elevation-z8" [formGroup]="form">
+  <mat-paginator
+    #topPaginator
+    [pageSizeOptions]="[50,100,200]"
+    showFirstLastButtons></mat-paginator>
+
+  <mat-table [dataSource]="dataSource" matSort >
+    <!-- Street Number Column -->
+    <ng-container matColumnDef="streetNumber">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Street Number</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.streetNumber}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="streetNumber-edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Street Number</mat-header-cell>
+      <mat-cell *matCellDef="let element;">
+        <mat-form-field>
+          <input matInput value="{{element.streetNumber}}" formControlName="streetNumber" />
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+
+    <!-- Street Column -->
+    <ng-container matColumnDef="street">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Street</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.street}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="street-edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Street</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-form-field>
+          <input matInput value="{{element.street}}" formControlName="street" />
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <!-- City Column -->
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="city-edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-form-field>
+          <input matInput value="{{element.city}}" formControlName="city" />
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <!-- State Column -->
+    <ng-container matColumnDef="state">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.state}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="state-edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-form-field>
+          <input matInput value="{{element.state}}" formControlName="state" />
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Zip Column -->
+    <ng-container matColumnDef="zip">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Zip</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.zip}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="zip-edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Zip</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-form-field>
+          <input matInput value="{{element.zip}}" formControlName="zip" />
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button type="button" mat-raised-button color="primary" (click)="addRow()" [disabled]="inEditMode"><mat-icon>add</mat-icon></button>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-raised-button (click)="editRow(element)" [disabled]="inEditMode" ><mat-icon>edit</mat-icon></button>
+        <button mat-raised-button (click)="deleteRow(element)" [disabled]="inEditMode"><mat-icon style="color:red;">delete</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions-edit">
+      <mat-header-cell *matHeaderCellDef>
+
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button type="button" mat-raised-button color="primary" (click)="save(element, form.value)" [disabled]="!inEditMode ? false : !form.valid"><mat-icon>save</mat-icon></button>
+        <button type="button" mat-raised-button (click)="cancel(element)" [disabled]="!inEditMode"><mat-icon>cancel</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns; when:shouldUseViewRow;" (click)="editRow(row)" ></mat-row>
+    <mat-row *matRowDef="let row; columns: editColumns; when:shouldUseEditRow;" (click)="editRow(row)" ></mat-row>
+  </mat-table>
+  <mat-paginator
+    showFirstLastButtons
+    [pageSize]="topPaginator.pageSize"
+    [pageIndex]="topPaginator.pageIndex"
+    [length]="topPaginator.length"
+    [pageSizeOptions]="topPaginator.pageSizeOptions"
+    (page)="syncPaginatorTop($event)"></mat-paginator>
+</div>

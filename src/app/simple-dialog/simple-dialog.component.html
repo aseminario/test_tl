@@ -1,0 +1,8 @@
+<h3 mat-dialog-title *ngIf="data.title" >{{data.title}}</h3>
+<mat-dialog-content class="mat-typography">
+  <p *ngIf="data.message">{{data.message}}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button cdkFocusInitial (click)="onNoClick()" *ngIf="data.noText">{{data.noText}}</button>
+  <button mat-button (click)="onYesClick()" *ngIf="data.yesText">{{data.yesText}}</button>
+</mat-dialog-actions>
