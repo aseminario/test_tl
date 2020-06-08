@@ -16,7 +16,7 @@ export class ParseAddressService {
     lines.forEach((element, index) => {
       const parts = element.split(',');
       if (parts.length !== 3) {
-        throw `Invalid line - is less than 2 commas or more than 2 commas: ${element}`;
+        throw Error(`Invalid line - is less than 2 commas or more than 2 commas: ${element}`);
       }
       const address = {
         id: uuidv4(),
@@ -39,7 +39,7 @@ export class ParseAddressService {
   private parseStreetNumberAndStreet(value: string, address: Address) {
     const parts = value.trim().split(' ');
     if (parts.length < 2) {
-      throw `Invalid street number/street section: ${value}`;
+      throw Error(`Invalid street number/street section: ${value}`);
     }
     address.streetNumber = parts.shift();
     address.street = parts.join(' ');
@@ -47,7 +47,7 @@ export class ParseAddressService {
   private parseStateAndZip(value: string, address: Address): void {
     const parts = value.trim().split(' ');
     if (parts.length !== 2) {
-      throw `Invalid state/zip section: ${value}`;
+      throw Error(`Invalid state/zip section: ${value}`);
     }
     address.state = parts[0];
     address.zip = parts[1];

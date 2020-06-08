@@ -37,7 +37,7 @@ export class AddressApiService {
     return this.httpClient.put(this.appSettings.dummyUrl, address).pipe(
       // this cathError is to simulate a OK result or an error result
       // because we don't have a restful endpoint.
-      catchError<any,Observable<Address>>(err => {
+      catchError<any, Observable<Address>>(err => {
         if (this.appSettings.thowErrorsOnSave){
           return throwError(err);
         } else {
@@ -53,10 +53,10 @@ export class AddressApiService {
   }
 
   public deleteAddress(address: Address): Observable<boolean> {
-    return this.httpClient.delete(this.appSettings.dummyUrl,{}).pipe(
+    return this.httpClient.delete(this.appSettings.dummyUrl, {}).pipe(
       // this cathError is to simulate a OK result or an error result
       // because we don't have a restful endpoint.
-      catchError<any,Observable<boolean>>(err => {
+      catchError<any, Observable<boolean>>(err => {
         if (this.appSettings.thowErrorsOnSave){
           return throwError(err);
         } else {
@@ -70,10 +70,10 @@ export class AddressApiService {
   }
 
   public addAddress(address: Address): Observable<Address> {
-    return this.httpClient.post(this.appSettings.dummyUrl,address).pipe(
+    return this.httpClient.post(this.appSettings.dummyUrl, address).pipe(
       // this cathError is to simulate a OK result or an error result
       // because we don't have a restful endpoint.
-      catchError<any,Observable<Address>>(err => {
+      catchError<any, Observable<Address>>(err => {
         if (this.appSettings.thowErrorsOnSave){
           return throwError(err);
         } else {

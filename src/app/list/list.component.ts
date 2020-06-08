@@ -151,14 +151,14 @@ export class ListComponent implements OnInit, AfterViewInit {
     if (this.inEditMode) {
       return;
     }
-    this.requestConfirmation('Do you want to remove this record?',undefined,'Yes', 'No').subscribe(
+    this.requestConfirmation('Do you want to remove this record?', undefined, 'Yes', 'No').subscribe(
       result => {
         // console.log(`Dialgo result: ${result}`);
         if (result === true) {
 
           this.addressApiService.deleteAddress(row)
           .subscribe(
-            result => {
+            resultFromDel => {
 
               this.removeRowFromTable(row);
 
@@ -168,11 +168,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 
         }
       }
-    )
+    );
 
   }
   save = (row, newValues) => {
-    var toSave = Object.assign({}, row, newValues);
+    const toSave = Object.assign({}, row, newValues);
     if (row.id === undefined) {
       // Insert
       this.addressApiService.addAddress(toSave)
@@ -207,7 +207,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   private requestConfirmation(title: string, message: string, yesText: string, noText: string): Observable<boolean> {
     const dialogRef = this.dialog.open<SimpleDialogComponent, DialogData, boolean>(SimpleDialogComponent, {
       width: '250px',
-      data: {title: title, message: message, yesText: yesText, noText: noText}
+      data: {title, message, yesText, noText}
     });
 
     return dialogRef.afterClosed();

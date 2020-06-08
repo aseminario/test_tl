@@ -16,5 +16,5 @@ describe('AppSettingsService', () => {
 
   it('should be the correct value', () => {
     expect(service.apiUrl).toBe('https://0f1c6e64.s3.amazonaws.com/addresses');
-  })
+  });
 });

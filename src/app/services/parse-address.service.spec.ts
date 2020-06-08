@@ -17,9 +17,9 @@ describe('ParseAddressService', () => {
   it('should parse 2 addresses', () => {
     const addresses = `12357 Glen Iris Drive NE, Sandy Sprints, FL 30327
 2857 Jesse Hill Jr Street, Decatur, GA 30354
-9007199254740992 Auburn Avenue, Sandy Sprints, FL 30301`
+9007199254740992 Auburn Avenue, Sandy Sprints, FL 30301`;
 
-    var result = service.parseAddresses(addresses);
+    const result = service.parseAddresses(addresses);
 
     expect(result.length).toBe(3);
 
